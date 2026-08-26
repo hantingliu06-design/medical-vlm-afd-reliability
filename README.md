@@ -41,13 +41,14 @@ If you only want to understand the project quickly, read the files in this order
 
 1. This README for the research goal, workflow, and file roles.
 2. [Final PathVQA results](tmp/clean_final_pathvqa_afd_table.csv).
-3. [Final ProstateMM/CHIMERA results](tmp/clean_final_prostatemm_afd_table.csv).
-4. [AFD post-processing script](AFD_Coverage_10_30_50_70_90_All_Datasets.py).
-5. [Dissertation figure-generation script](generate_dissertation_figures.py).
+3. [VQA-RAD result summaries](tmp/).
+4. [Final ProstateMM/CHIMERA results](tmp/clean_final_prostatemm_afd_table.csv).
+5. [AFD post-processing script](AFD_Coverage_10_30_50_70_90_All_Datasets.py).
+6. [Dissertation figure-generation script](generate_dissertation_figures.py).
 
 ### To understand model inference
 
-Read the [PathVQA inference script](PathVQA_Qwen_MedGemma_LLaVA_ZeroShot_AFD.py), the [ProstateMM/CHIMERA inference script](ProstateMM_CHIMERA_Qwen_MedGemma_LLaVA_ZeroShot_AFD.py), and their corresponding notebooks. Each inference script contains environment setup, seed and device configuration, data loading, model loading, prompt construction, batched generation, checkpointing, answer-quality evaluation, and result export.
+Read the [PathVQA inference script](PathVQA_Qwen_MedGemma_LLaVA_ZeroShot_AFD.py), the [VQA-RAD notebook](VQA_RAD_Qwen_MedGemma_LLaVA_ZeroShot_AFD.ipynb), the [ProstateMM/CHIMERA inference script](ProstateMM_CHIMERA_Qwen_MedGemma_LLaVA_ZeroShot_AFD.py), and their corresponding notebooks. Each experiment contains environment setup, seed and device configuration, data loading, model loading, prompt construction, batched generation, checkpointing, answer-quality evaluation, and result export.
 
 ### To understand the dissertation
 
@@ -60,6 +61,7 @@ Read [latex_template/](latex_template/), [references.bib](references.bib), and [
 | File | Purpose |
 | --- | --- |
 | `PathVQA_Qwen_MedGemma_LLaVA_ZeroShot_AFD.py` | Runs zero-shot inference, sampling, checkpointing, and answer evaluation for the three VLMs on the PathVQA test split. |
+| `VQA_RAD_Qwen_MedGemma_LLaVA_ZeroShot_AFD.ipynb` | Google Colab/Jupyter workflow for VQA-RAD zero-shot inference and AFD evaluation. |
 | `ProstateMM_CHIMERA_Qwen_MedGemma_LLaVA_ZeroShot_AFD.py` | Loads ProstateMM/CHIMERA data and runs inference and reliability evaluation for the three VLMs. The default split is test. |
 | `AFD_Coverage_10_30_50_70_90_All_Datasets.py` | Reads JSON outputs and computes AFD frequency, Semantic AFD, answer disagreement, question-aligned entropy, random baseline, failure AUROC/AUPRC, and coverage metrics. |
 | `generate_dissertation_figures.py` | Reads the main aggregate CSV and generates dissertation performance-rejection curves and the evaluation framework diagram. |
@@ -77,9 +79,12 @@ The `.py` files are the recommended source of truth for long-term maintenance. T
 
 | File | Purpose |
 | --- | --- |
-| `tmp/afd_summary_all_datasets_coverage_10_30_50_70_90.csv` | Main aggregate table across datasets, models, uncertainty methods, and coverage levels. |
+| `tmp/afd_summary_all_datasets_coverage_10_30_50_70_90.csv` | Main aggregate table for PathVQA and ProstateMM/CHIMERA, used by the figure-generation script. |
 | `tmp/clean_final_pathvqa_afd_table.csv` | Compact presentation table for PathVQA. |
 | `tmp/clean_final_prostatemm_afd_table.csv` | Compact presentation table for ProstateMM/CHIMERA. |
+| `tmp/vqa_rad_qwen2_5_vl_3b_summary.csv` | VQA-RAD aggregate summary for Qwen2.5-VL-3B-Instruct. |
+| `tmp/vqa_rad_medgemma_4b_it_summary.csv` | VQA-RAD aggregate summary for MedGemma-4B-it. |
+| `tmp/vqa_rad_llava_1_5_7b_summary.csv` | VQA-RAD aggregate summary for LLaVA-1.5-7B. |
 | `results/README.md` | Result schema, provenance, and reproduction notes. |
 
 Record-level JSON files, full scored CSV exports, and raw medical images are intentionally excluded from the public repository.
@@ -129,7 +134,7 @@ If PowerShell does not allow activation, install directly into the environment:
 
 Install `bitsandbytes` separately if required, using a build compatible with your CUDA environment. Do not force GPU-only dependencies into an incompatible CPU environment.
 
-## Reproducing PathVQA or ProstateMM/CHIMERA
+## Reproducing PathVQA, VQA-RAD, or ProstateMM/CHIMERA
 
 ### 1. Prepare datasets and model access
 
@@ -165,6 +170,14 @@ ProstateMM/CHIMERA entry point:
 ```text
 ProstateMM_CHIMERA_Qwen_MedGemma_LLaVA_ZeroShot_AFD.py
 ```
+
+VQA-RAD entry point:
+
+```text
+VQA_RAD_Qwen_MedGemma_LLaVA_ZeroShot_AFD.ipynb
+```
+
+The VQA-RAD workflow is currently provided as a Notebook rather than a standalone `.py` script. Run it in Google Colab/Jupyter from top to bottom, after configuring the dataset, model IDs, output directory, seed, batch size, and sampled-answer count.
 
 ### 3. Run AFD post-processing
 
@@ -215,11 +228,12 @@ The public repository currently supports inspection and reproduction of:
 
 - The committed aggregate result tables
 - PathVQA inference
+- VQA-RAD inference through the provided Notebook
 - ProstateMM/CHIMERA inference
 - AFD post-processing
 - Dissertation figure generation
 
-There is currently no standalone VQA-RAD inference script in this repository. VQA-RAD aggregate results can be inspected, but a complete rerun from raw data requires adding the corresponding data-loading, model-inference, and output-generation code.
+VQA-RAD is currently represented by one complete Notebook and three model-specific aggregate summaries. A standalone VQA-RAD `.py` entry point is not included yet; users who prefer script-based execution can export the Notebook to Python after validating the cells. The current figure-generation script does not plot VQA-RAD because its main input table contains PathVQA and ProstateMM/CHIMERA rows only.
 
 Even with identical code, results may change because of model revisions, dataset versions, GPU/CUDA/PyTorch versions, batch size, quantisation, random seeds, sampling parameters, and the exact JSON output files selected for post-processing. For each formal experiment, record the git commit, model revision, dataset version, hardware, dependency versions, seed, batch size, quantisation method, and `K`.
 
@@ -238,4 +252,3 @@ Before publishing a release:
 ## Citation
 
 If you use this code or its results, cite [CITATION.cff](CITATION.cff), together with the original PathVQA, VQA-RAD, ProstateMM/CHIMERA, and model papers.
-

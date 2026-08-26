@@ -29,6 +29,9 @@ tmp/*
 !tmp/afd_summary_all_datasets_coverage_10_30_50_70_90.csv
 !tmp/clean_final_pathvqa_afd_table.csv
 !tmp/clean_final_prostatemm_afd_table.csv
+!tmp/vqa_rad_qwen2_5_vl_3b_summary.csv
+!tmp/vqa_rad_medgemma_4b_it_summary.csv
+!tmp/vqa_rad_llava_1_5_7b_summary.csv
 latex_template/build/
 release/
 *.aux
