@@ -1,0 +1,262 @@
+%-------------------------------------------------------------------------------
+% TEMPLATE FOR UCL MSc THESIS
+% (c) Paul Oswald, 2023
+
+% This is a template for a MSc Thesis document, based on a Microsoft Word template given 
+% by the Department of Medical Physics and Biomedical Engineering, UCL. 
+%------------------------------------------------------------------------------- 
+
+
+% ------------------ DOCUMENT SETUP ------------------ 
+% The document class defines the document type (report) and sets the font size (12pt)
+\documentclass[12pt]{report}
+\author{Hanting Liu}
+
+
+% Inputs the Document Packages
+\input{_Packages}
+
+% keep figure reference number consistent
+\usepackage{notoccite}
+\usepackage{amssymb}
+
+
+% Hyperlink
+\usepackage{hyperref}
+
+% table 1
+\usepackage{adjustbox}
+
+% table 2
+\usepackage{tabularx}
+\usepackage{array}
+
+% table 4
+\usepackage{multirow}
+\usepackage[normalem]{ulem}
+\usepackage{booktabs}
+\usepackage[mathscr]{eucal}
+\usepackage{graphicx}
+\usepackage[normalem]{ulem}
+\useunder{\uline}{\ul}{}
+
+% Controls how many subsections the document can take
+%  and how many of those will get put into the contents pages.
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+
+% Line Spacing
+\setstretch{1.5}
+
+% Psudo code
+\usepackage{algorithm}
+\usepackage{algorithmic}
+
+
+% Places a dot after Chapter/Section/Subsection number in Table of Contents
+\renewcommand{\cftchapaftersnum}{.}
+\renewcommand{\cftsecaftersnum}{.}
+\renewcommand{\cftsubsecaftersnum}{.}
+
+%  Customize Dot spacing in Table of Contents/List of Figures/Tables
+\renewcommand{\cftdotsep}{0.3}
+
+
+% Line Break Properties
+\tolerance=1
+\emergencystretch=\maxdimen
+\hyphenpenalty=10000
+\hbadness=10000
+
+
+% Formatting Table of Contents/Lists titles
+\renewcommand{\contentsname}{\bfseries\LARGE{CONTENTS}}
+\renewcommand{\listfigurename}{\bfseries\LARGE{LIST OF FIGURES}}
+\renewcommand{\listtablename}{\bfseries\LARGE{LIST OF TABLES}}
+
+% Signature Line for the declaration
+\newbox\namebox
+\newdimen\signboxdim
+
+\def\signature#1{%
+    \setbox\namebox=\hbox{#1}
+    \signboxdim=\dimexpr(\wd\namebox+3cm)
+    \parbox[t]{\signboxdim}{%
+        \centering
+            \hrulefill\\    % for a line
+            #1
+        \par}%
+    }
+
+% Title Formatting customization
+\titleformat{\chapter}{\normalfont\bfseries\LARGE}{\thechapter.}{1em}{\MakeUppercase}
+
+\titleformat{\section}{\normalfont\bfseries\large}{\thesection.}{1em}{\MakeUppercase}
+\titlespacing*{\section} {0pt} {0pt} {15pt} % left, before, after
+
+\titleformat{\subsection}{\normalfont\bfseries\large}{\thesubsection.}{1em}{}
+\titlespacing*{\subsection} {0pt} {10pt} {10pt}
+
+\titleformat{\subsubsection}{\normalfont\bfseries\large}{\thesubsubsection.}{1em}{}
+\titlespacing*{\subsubsection} {0pt} {10pt} {10pt}
+
+
+% HEADER AND FOOTER
+\pagestyle{fancy}  % Set Page Style (Header and Footer Style)
+\fancyhf{}  % Clears the header and footer (from the default info)
+
+% Header
+\renewcommand{\headrulewidth}{0pt}  % Removes the default Horizontal Line in Header
+% Optional Headers
+%\fancyhead[L]{}
+%\fancyhead[R]{2022/2023}
+
+% Footer
+\fancyfoot[C]{\thepage} % Page Number
+
+% Change figure numbering per section
+\numberwithin{figure}{chapter}
+
+%Acronym entries
+% \makeglossaries
+% \newacronym{US}{US}{Ultrasound}
+
+
+%  -------------------------------------------------
+%  --------- The document starts from here --------- 
+%  -------------------------------------------------
+\begin{document}
+
+
+% ------------------  TITLE PAGE -------------------
+\begin{titlepage}
+\begin{center}
+    % UCL IMAGE
+    \vspace*{-1cm}
+    \noindent
+    \makebox[\textwidth][l]{%
+      \includegraphics[width=0.2\paperwidth]{Images/uom_logo.pdf}%
+    }
+    
+    \vspace{2.3cm}
+    
+    % Title
+    {\relscale{1.19}{A thesis submitted in partial fulfilment of the requirements for the degree of Master of Science (MSc) in}}
+
+    \vspace{1cm}
+    {\relscale{1.15}\textbf{HEALTH DATA SCIENCE\\}}
+    \vspace{0.3cm}
+    {\relscale{1.15}\textbf{UNIVERSITY OF MANCHESTER\\}}
+    \vspace{2.4cm}
+    
+    {\relscale{1.19}{Are Stronger Multimodal Large Language Models Better at Recognising Their Failures?\\[0.3cm] A Zero-Shot Evaluation Across Histopathology, Radiology, and Prostate Assessment}}\\
+    %\vspace{0.1cm}
+    By\\
+    %\vspace{0.1cm}
+    Hanting LIU\\
+    \vspace{0.9cm}
+    {\begin{singlespace}Supervisor: Mobarak Hoque\\
+    \end{singlespace}}
+\end{center}
+{\raggedleft\vfill{\begin{singlespace}
+     Faculty of Biology, Medicine\\
+  and Health\\
+\end{singlespace}
+ UNIVERSITY OF MANCHESTER\\
+ \begin{singlespace}
+ Date of submission: August 2026\\
+ Word count: TBC\\
+ \end{singlespace}
+}\par
+}
+\end{titlepage}
+
+% ----------------------  DECLARATION -----------------------
+\newpage
+\chapter*{Declaration} % the Asterix (*) indicates that this section will be added to the table of contents but no number will be present beside it.
+\addcontentsline{toc}{chapter}{Declaration}
+I, Hanting Liu confirm that the work presented in this report is my own. Where information has been derived from other sources, I confirm that this has been indicated in the report.
+\vspace*{3cm}
+
+\noindent\signature{Hanting Liu}
+\newpage
+% ----------------------  ABSTRACT -----------------------
+\newpage
+\chapter*{Abstract} 
+\addcontentsline{toc}{chapter}{Abstract}
+\input{Abstract}
+
+% -------------------  IMPACT STATEMENT --------------------
+\newpage
+\chapter*{Impact Statement}
+\addcontentsline{toc}{chapter}{Impact Statement}
+\input{ImpactStatement}
+
+
+% -----------------  ACKNOWLEDGEMENTS  -------------------
+\newpage
+\chapter*{Acknowledgements}
+\addcontentsline{toc}{chapter}{Acknowledgements}
+\input{Acknowledgements}
+
+
+% ------------------  TABLE OF CONTENTS --------------------
+\newpage
+\tableofcontents 
+
+
+% -------------------  LIST OF FIGURES --------------------
+\newpage  
+\listoffigures%}
+\addcontentsline{toc}{chapter}{List of Figures}
+
+
+% -------------------  LIST OF TABLES ---------------------
+\newpage
+\listoftables%}
+\addcontentsline{toc}{chapter}{List of Tables}
+
+
+% -------------------  INTRODUCTION / LITERATURE REVIEW  ---------------------
+\chapter{Introduction and Literature Review}
+\input{Introduction}
+\input{Background}
+
+% -------------------  CASE / HYPOTHESIS / AIMS / OBJECTIVES  ---------------------
+\chapter{Research Question and Objectives}
+\input{CaseHypothesisAimsObjectives}
+
+% -------------------  DESIGN OF STUDY OR METHOD  ---------------------
+\chapter{Methods}
+\input{Methodology}
+\input{Data}
+
+% -------------------  RESULTS  ---------------------
+\chapter{Results}
+\input{Results}
+
+% -------------------  DISCUSSION (INCLUDING CONCLUSION)  ---------------------
+\chapter{Discussion and Conclusion}
+\input{Discussion}
+\section{Conclusion}
+\input{Conclusions}
+
+
+
+% -------------------  BIBLIOGRAPHY ---------------------
+\newpage
+\phantomsection
+\addcontentsline{toc}{chapter}{References}
+\bibliographystyle{agsm}
+\bibliography{References}
+
+
+% -------------------  APPENDIX  ---------------------
+\chapter*{Appendix}
+\addcontentsline{toc}{chapter}{Appendix}
+\input{Appendix}
+
+\end{document}
+%  -------------------------------------------------
+%  --------- The document ends from here ----------- 
+%  -------------------------------------------------

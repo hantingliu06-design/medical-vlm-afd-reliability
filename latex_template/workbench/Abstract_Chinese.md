@@ -1,0 +1,3 @@
+# 摘要中文对照
+
+具有较强答案生成能力的视觉—语言模型正在被探索用于临床诊断和治疗决策支持，但安全使用还要求系统能够识别不可靠答案。当前评价主要奖励答案准确性，而可靠性和失败意识究竟会随准确性共同提高，还是会与准确性发生分离，仍不清楚。本研究在 zero-shot setting 下评价 Qwen2.5-VL-3B-Instruct、LLaVA-1.5-7B 和 MedGemma-4B-it，以完整 PathVQA test split 作为主要数据集，并使用 VQA-RAD 和 ProstateMM-CHIMERA 进行外部验证；答案质量由 BLEU-1、BLEU-2、ROUGE-L 和 METEOR 衡量，失败检测由 AUROC、AUPRC 和 selective coverage analysis 衡量。在 PathVQA 上，MedGemma-4B-it 的 ROUGE-L 和 METEOR 最高，但其 best-detector AUROC 最低，为 68.63%；Qwen2.5-VL-3B-Instruct 的 BLEU-1 和 BLEU-2 最高，同时取得最高 AUROC 81.20%；答案质量与失败检测之间的分离在 VQA-RAD 上更加清楚，但没有在较小的 ProstateMM-CHIMERA test set 上复现。这些发现说明，更好的答案质量不一定意味着更强的失败意识，因此在临床使用之前，应当从效用和操作性可靠性两个维度评价 healthcare VLMs。

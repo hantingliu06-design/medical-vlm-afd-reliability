@@ -1,0 +1,38 @@
+\section*{Reproducibility Configuration}
+\addcontentsline{toc}{section}{Reproducibility Configuration}
+
+Table~\ref{tab:reproducibility-configuration} records the settings used for the final evaluation. These details distinguish checkpoint behaviour from changes caused by prompts, decoding, metric thresholds, or detector configuration.
+
+\begin{table}[htbp]
+    \centering
+    \caption{Final reproducibility configuration.}
+    \label{tab:reproducibility-configuration}
+    \small
+    \begin{tabularx}{\textwidth}{lX}
+        \toprule
+        Item & Final setting \\
+        \midrule
+        Models & Qwen2.5-VL-3B-Instruct; LLaVA-1.5-7B; MedGemma-4B-it \\
+        Evaluation mode & Zero-shot; no target-task fine-tuning \\
+        Datasets & PathVQA official test split (6,719); VQA-RAD official test split (451); ProstateMM-CHIMERA test split (42 task records) \\
+        Greedy generation & One deterministic greedy answer per item \\
+        Sampled generation & $K=3$ answers per item; temperature $\tau=0.7$; nucleus probability $p=90\%$; seed 42 \\
+        Failure endpoint & ROUGE-L $<20\%$ and METEOR $<10\%$ \\
+        Embedding model & BAAI/bge-small-en-v1.5 with L2-normalised embeddings \\
+        Semantic threshold & Cosine similarity $\geq80\%$ for Semantic AFD grouping \\
+        Retained detectors & Random baseline; AFD frequency; Semantic AFD; Question-aligned uncertainty \\
+        Excluded development method & Answer disagreement, because it overlaps with exact-frequency uncertainty \\
+        Selective operating points & 10\%, 30\%, 50\%, 70\%, and 90\% coverage \\
+        \bottomrule
+    \end{tabularx}
+\end{table}
+
+\section*{Model Identifiers and Source Files}
+\addcontentsline{toc}{section}{Model Identifiers and Source Files}
+
+The final model keys used in the exported records are \texttt{qwen2\_5\_vl\_3b}, \texttt{llava\_1\_5\_7b}, and \texttt{medgemma\_4b\_it}. The corresponding model identifiers are \texttt{Qwen/Qwen2.5-VL-3B-Instruct}, \texttt{llava-hf/llava-1.5-7b-hf}, and \texttt{google/medgemma-4b-it}. The VQA-RAD summary exports contain five method rows per model; only the four retained detectors listed above are used in the formal comparison.
+
+\section*{Interpretation Rule}
+\addcontentsline{toc}{section}{Interpretation Rule}
+
+All percentages in the dissertation are display forms of values calculated on normalised scales. Differences are reported in percentage points. The operational failure label is a reference-matching proxy and should not be interpreted as an expert diagnosis, a confirmed hallucination, or a clinical safety event. AUROC and AUPRC evaluate ranking against this proxy; they do not provide a calibrated probability of patient harm.

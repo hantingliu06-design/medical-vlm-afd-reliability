@@ -1,0 +1,12 @@
+cff-version: 1.2.0
+title: "AFD Reliability Evaluation for Medical Vision-Language Models"
+message: "Please cite this repository and the original dataset/model papers."
+type: software
+authors:
+  - family-names: "AUTHOR"
+    given-names: "REPLACE_ME"
+    affiliation: "REPLACE_ME"
+date-released: 2026-08-26
+version: 1.0.0
+repository-code: "https://github.com/REPLACE_ME/REPLACE_ME"
+license: "NOASSERTION"

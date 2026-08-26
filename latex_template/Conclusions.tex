@@ -1,0 +1,17 @@
+This dissertation asked whether healthcare VLMs with stronger zero-shot answer generation are also better at recognising metric-defined failures. Qwen2.5-VL-3B-Instruct, LLaVA-1.5-7B, and MedGemma-4B-it were compared across PathVQA, VQA-RAD, and ProstateMM-CHIMERA using reference metrics, black-box detector scores, and selective analysis.
+
+\subsection{Answer to the Research Question}
+
+The answer is no, not necessarily. MedGemma-4B-it leads ROUGE-L and METEOR on PathVQA and three answer metrics on VQA-RAD, while Qwen2.5-VL-3B-Instruct has the highest detector AUROC on both datasets. However, the relationship is conditional: Qwen2.5-VL-3B-Instruct also leads PathVQA BLEU, and MedGemma-4B-it leads both answer quality and failure detection on ProstateMM-CHIMERA. No detector dominates every condition. Better answer generation and better failure awareness can therefore coincide, but one cannot be inferred from the other.
+
+\subsection{Overall Contribution}
+
+The contribution is a dual-axis evaluation rather than a new model or uncertainty method. One greedy answer measures answer utility and defines the operational label, while three sampled answers create independent black-box detector scores. Applying this design to three models and three equal medical settings reveals a contrast that an answer-only leaderboard would miss and shows that the relationship changes with metric, detector, and dataset. Question-aligned uncertainty is useful in several conditions, especially the prostate task, but its mixed performance prevents a universal superiority claim.
+
+\subsection{Practical Implication}
+
+Healthcare VLM evaluation should report answer quality and failure awareness separately and connect detector ranking to retained-set behaviour. A possible human-in-the-loop system could refer high-scoring cases for review, but any threshold must be validated for its target population and workflow. The current failure label is lexical rather than expert-adjudicated, the study uses one run and three samples, and the prostate test is small and patient-linked. The results support a safer evaluation process, not autonomous clinical use or a claim of clinical safety.
+
+\subsection{Final Statement}
+
+The strongest healthcare VLM cannot be identified from one answer score or one uncertainty metric. A useful system must generate good answers and make weak outputs identifiable under the intended conditions. Because these properties diverge, align, and change order across the tested datasets, reliability must be measured rather than assumed. Future comparisons should therefore avoid presenting one universal winner unless answer quality, failure detection, and dataset dependence all support the same conclusion. This dual requirement should guide benchmark reporting and future clinical validation of healthcare VLMs.
